@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ร้านเช่าหนังสือออนไลน์</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+    }
+
+    .bg-overlay {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+  <!-- Navbar -->
+  <header class="bg-blue-800 text-white shadow">
+    <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+      <h1 class="text-xl font-bold">📚 ร้านเช่าหนังสือ</h1>
+      <nav class="space-x-4">
+        <a href="index.html" class="hover:underline">หน้าแรก</a>
+        <a href="register_book.html" class="hover:underline">เพิ่มหนังสือ</a>
+        <a href="edit_delete.php" class="hover:underline">จัดการหนังสือ</a>
+        <a href="about.html" class="hover:underline">เกี่ยวกับร้าน</a>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-3xl font-bold text-center mb-6">📚 ร้านเช่าหนังสือออนไลน์</h1>
+    <p class="text-center text-lg mb-4">เลือกดูหนังสือที่คุณสนใจ แล้วมาเช่ากับเราได้ง่ายๆ</p>
+    <table class="w-full border-collapse border border-gray-300 mt-6">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="border px-4 py-2">ชื่อหนังสือ</th>
+          <th class="border px-4 py-2">ผู้แต่ง</th>
+          <th class="border px-4 py-2">ประเภท</th>
+          <th class="border px-4 py-2">สถานะ</th>
+        </tr>
+      </thead>
+      <tbody id="bookList">
+        <!-- ดึงข้อมูลจาก book_list.php -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    fetch('book_list.php')
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.getElementById('bookList');
+        data.forEach(book => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="border px-4 py-2">${book.title}</td>
+            <td class="border px-4 py-2">${book.author}</td>
+            <td class="border px-4 py-2">${book.category}</td>
+            <td class="border px-4 py-2">${book.status}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      });
+  </script>
+</body>
+</html>

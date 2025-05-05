@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>รายการหนังสือ | ร้านเช่าหนังสือ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+    }
+    .bg-overlay {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+  </style>
+</head>
+<body class="text-gray-800 font-sans">
+
+  <!-- Navbar -->
+  <header class="bg-blue-800 text-white shadow">
+    <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+      <h1 class="text-xl font-bold">📚 ร้านเช่าหนังสือ</h1>
+      <nav class="space-x-4">
+        <a href="index.html" class="hover:underline">หน้าแรก</a>
+        <a href="register_book.html" class="hover:underline">เพิ่มหนังสือ</a>
+        <a href="edit_delete.php" class="hover:underline">จัดการหนังสือ</a>
+        <a href="about.html" class="hover:underline">เกี่ยวกับร้าน</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- รายการหนังสือ -->
+  <div class="max-w-6xl mx-auto mt-10 p-6 bg-overlay shadow-2xl rounded-xl">
+    <h2 class="text-3xl font-bold mb-6 text-center text-blue-900">📖 รายการหนังสือที่ให้เช่า</h2>
+
+    <!-- รูปภาพตกแต่ง -->
+    <div class="flex justify-center mb-6">
+      <img src="https://cdn.pixabay.com/photo/2015/11/10/17/00/still-life-1037378_1280.jpg" alt="book shelf" class="rounded-lg shadow-md w-1/2">
+    </div>
+
+    <table class="w-full border-collapse border border-gray-300 mt-4 bg-white bg-opacity-80">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="border px-4 py-2">ชื่อหนังสือ</th>
+          <th class="border px-4 py-2">ผู้แต่ง</th>
+          <th class="border px-4 py-2">ประเภท</th>
+          <th class="border px-4 py-2">สถานะ</th>
+          <th class="border px-4 py-2">การจัดการ</th>
+        </tr>
+      </thead>
+      <tbody id="bookList">
+        <!-- ดึงข้อมูลด้วย JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Script ดึงข้อมูลจาก PHP -->
+  <script>
+    fetch('book_list.php')
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.getElementById('bookList');
+        data.forEach(book => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="border px-4 py-2">${book.title}</td>
+            <td class="border px-4 py-2">${book.author}</td>
+            <td class="border px-4 py-2">${book.category}</td>
+            <td class="border px-4 py-2">${book.status}</td>
+            <td class="border px-4 py-2 space-x-2 text-center">
+              <a href="edit_delete.php?action=edit&id=${book.id}" class="bg-blue-400 text-white px-3 py-1 rounded hover:bg-red-500">แก้ไข</a>
+              <a href="edit_delete.php?action=delete&id=${book.id}" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบหนังสือเล่มนี้?');">ลบ</a>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>เพิ่มหนังสือใหม่</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+    }
+
+    .bg-overlay {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans p-6">
+  <!-- Navbar -->
+  <header class="bg-blue-800 text-white shadow">
+    <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+      <h1 class="text-xl font-bold">📚 ร้านเช่าหนังสือ</h1>
+      <nav class="space-x-4">
+        <a href="index.html" class="hover:underline">หน้าแรก</a>
+        <a href="register_book.html" class="hover:underline">เพิ่มหนังสือ</a>
+        <a href="edit_delete.php" class="hover:underline">จัดการหนังสือ</a>
+        <a href="about.html" class="hover:underline">เกี่ยวกับร้าน</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold mb-4 text-center">📘 เพิ่มหนังสือใหม่เข้าสู่ระบบ</h2>
+    <form action="save_book.php" method="POST" class="space-y-4">
+      <input type="text" name="title" placeholder="ชื่อหนังสือ" class="w-full p-2 border rounded" required>
+      <input type="text" name="author" placeholder="ผู้แต่ง" class="w-full p-2 border rounded" required>
+      <input type="text" name="category" placeholder="ประเภทหนังสือ" class="w-full p-2 border rounded" required>
+      <select name="status" class="w-full p-2 border rounded">
+        <option value="ว่างให้เช่า">ว่างให้เช่า</option>
+        <option value="มีผู้เช่า">มีผู้เช่า</option>
+      </select>
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded">บันทึกหนังสือ</button>
+    </form>
+  </div>
+</body>
+</html>
